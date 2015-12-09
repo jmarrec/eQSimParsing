@@ -16,7 +16,10 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.dates as md
 import matplotlib.pyplot as plt
-import seaborn as sns
+plt.style.use('ggplot')
+#import seaborn as sns
+#sns.set(style="white", context="talk")
+
 
 import glob as gb
 import os
@@ -26,7 +29,6 @@ import re
 
 import datetime as dt
 
-sns.set(style="white", context="talk")
     
     
 def create_pv_a_dict():
@@ -571,7 +573,18 @@ def parse_sim(coef_path=None, sim_path=None):
 #                               RUN FUNCTIONS                                  #
 ################################################################################ 
     
-   
+def custom_apply_zones(x):
+    """ Aggregate zone data to the system level
+    
+    For the zones, some columns should be summed (CFM, Capacity, etc)
+    But others should be averaged
+    """
+    # For these three columns, do a mean
+    if x.name in ['Minimum Flow (Frac)', 'Sensible (FRAC)', 'W/CFM']:
+        return np.mean(x)
+    # For the rest, do a sum
+    else:
+        return np.sum(x)
     
 
 # If launched rather than imported
@@ -580,7 +593,9 @@ if __name__ == "__main__":
     # Make it IPython compatible as well.
     try:
         __IPYTHON__
+        is_ipython = True
     except NameError:
+        is_ipython = False
         # Import the new open function, that supports encoding
         from io import open
     
@@ -595,3 +610,31 @@ if __name__ == "__main__":
     last_print = "In an interactive prompt, the variables 'usage', 'sv_a_dict', 'pv_a_dict' are initialized"
        
     print(last_print)
+    
+    # Only from command line
+    if not is_ipython:
+        # Add some plotting to show how it works 
+        pv_a_dict['PUMPS'].ix[:, 'W/GPM'].plot(kind='bar', figsize=(16,9), title='Pump W/GPM', color='#EB969C');
+        #sns.despine()
+        plt.tight_layout()
+        plt.show();
+        
+        sv_a_dict['Fans'].ix[:,'W/CFM'].plot(kind='barh', figsize=(12,10), color='#EB969C', title='Fan W/CFM')
+        plt.tight_layout()
+        #sns.despine()   
+        plt.show();
+        
+        # Zones: aggregate to system level
+        zones = sv_a_dict['Zones']
+        print('Here are the first 15 zones, only showing CFM column')
+        print(zones['Supply Flow (CFM)'].head(15))
+        print("You see above that rows are index by ('System', 'Zone Name'). Now let's aggregate all zones under each system")
+        
+        # After the groupby, the apply applies to each group dataframe. So I use a lambda x to apply to each column
+        zones_agg_metrics = zones.groupby(level='System').apply(lambda x: x.apply(custom_apply_zones))
+        # Recalc a weighted W/CFM
+        zones_agg_metrics['W/CFM'] = zones_agg_metrics['Fan (kW)'] * 1000 / zones_agg_metrics['Supply Flow (CFM)']
+        print("\n\nHere is the result of the aggregation, only showung CFM column again")
+        print(zones_agg_metrics['Supply Flow (CFM)'].head())
+    
+    

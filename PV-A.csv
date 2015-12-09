@@ -6,13 +6,18 @@ Primary Equipment,Equipment Type,Attached to,Capacity (mmBTU/hr),Flow (GPM),EIR,
 Heating Boiler 1,HW-BOILER,WSHP Loop,-0.327,91.0,0.0,1.266,0.0,0.7898894154818326
 Heating Boiler 2,HW-BOILER,WSHP Loop,-0.3,83.5,0.0,1.266,0.0,0.7898894154818326
 
+CIRCULATION LOOPS
+Circulation Loop,Heating Cap. (mmBTU/hr),Cooling Cap. (mmBTU/hr),Loop Flow (GPM),Total Head (ft),Supply UA (BTU/h.F),Supply Loss DT (F),Return UA (BTU/h.F),Return Loss DT (F),Loop Volume (gal),Fluid Heat Cap. (BTU/lb.F)
+WSHP Loop,-1.695,2.369,471.5,61.6,300.0,0.00,300.0,0.00,707.2,1.00
+DHW Loop,-0.097,0.000,12.1,6.4,180.0,0.00,180.0,0.00,18.1,1.00
+
+CHILLERS
+Primary Equipment,Equipment Type,Attached to,Capacity (mmBTU/hr),Flow (GPM),EIR,HIR,Aux. (kW),COP,kW/ton,GPM/ton
+
 DW-HEATERS
 DHW Heaters,Equipment Type,Attached to,Cap. (mmBTU/hr),Flow (GPM),EIR,HIR,Auxiliary (kW),Tank (Gal),Tank UA (BTU/h.ft),Thermal Eff
 DHW Boiler 1,GAS DW-HEATER,DHW Loop,-0.3,37.4,0.0,1.22,0.0,26.2,17.01,0.819672131147541
 DHW Boiler 2,GAS DW-HEATER,DHW Loop,-0.3,37.4,0.0,1.22,0.0,26.2,17.01,0.819672131147541
-
-CHILLERS
-Primary Equipment,Equipment Type,Attached to,Capacity (mmBTU/hr),Flow (GPM),EIR,HIR,Aux. (kW),COP,kW/ton,GPM/ton
 
 PUMPS
 Pump,Attached to,Flow (GPM),Head (ft),Head Setpoint (ft),Capacity Control,Power (kW),Mech. Eff,Motor Eff,W/GPM
@@ -22,11 +27,6 @@ BP-2,Heating Boiler 2,83.5,6.0,0.0,ONE-SPEED,0.191,0.77,0.64,2.287425149700599
 BP-1,Heating Boiler 1,235.6,15.5,0.0,ONE-SPEED,1.12,0.77,0.8,4.753820033955858
 DHW Pump 1,DHW Boiler 1,10.0,7.7,0.0,ONE-SPEED,0.047,0.77,0.4,4.7
 DHW Pump 2,DHW Boiler 2,10.0,7.7,0.0,ONE-SPEED,0.047,0.77,0.4,4.7
-
-CIRCULATION LOOPS
-Circulation Loop,Heating Cap. (mmBTU/hr),Cooling Cap. (mmBTU/hr),Loop Flow (GPM),Total Head (ft),Supply UA (BTU/h.F),Supply Loss DT (F),Return UA (BTU/h.F),Return Loss DT (F),Loop Volume (gal),Fluid Heat Cap. (BTU/lb.F)
-WSHP Loop,-1.695,2.369,471.5,61.6,300.0,0.00,300.0,0.00,707.2,1.00
-DHW Loop,-0.097,0.000,12.1,6.4,180.0,0.00,180.0,0.00,18.1,1.00
 
 COOLING TOWERS
 Cooling Tower,Equipment Type,Attached to,Cap. (mmBTU/hr),Flow (GPM),Nb of Cells,Fan Power per Cell (kW),Spray Power per Cell (kW),Aux. (kW),Fan W/GPM,GPM/ton
